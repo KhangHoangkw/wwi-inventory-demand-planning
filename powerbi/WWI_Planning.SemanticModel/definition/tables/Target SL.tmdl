@@ -1,0 +1,18 @@
+/// What-if parameter: target service level for the safety-stock slider
+table 'Target SL'
+	lineageTag: 67cce703-db8a-4fd3-8d74-186bf276330a
+
+	measure 'Target SL Value' = SELECTEDVALUE('Target SL'[Value], 0.95)
+		formatString: 0.0%
+		displayFolder: What-if
+		lineageTag: b3ada421-2681-4158-a167-e67617bec1ad
+
+	column Value
+		lineageTag: 6da91e5b-04c1-49d9-8b82-b92e6210abc0
+		isNameInferred
+		sourceColumn: [Value]
+
+	partition 'Target SL' = calculated
+		mode: import
+		source = GENERATESERIES(0.80, 0.995, 0.005)
+

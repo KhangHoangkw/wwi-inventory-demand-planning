@@ -1,0 +1,65 @@
+table 'Backorder by SKU'
+	lineageTag: 75010388-abd3-406b-a472-97c04985dc3e
+
+	column stock_item_id
+		dataType: int64
+		isHidden
+		lineageTag: 0a197a9a-ae51-4cdb-a3f5-8a26631bbcfa
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column stock_item_name
+		dataType: string
+		lineageTag: a3b4383d-b6bb-4e4d-b9ab-cf383e88afac
+		sourceColumn: stock_item_name
+
+	column primary_stock_group
+		dataType: string
+		lineageTag: f454d104-1948-441c-b3bf-9aadd0c00ef4
+		sourceColumn: primary_stock_group
+
+	column abc_class
+		dataType: string
+		lineageTag: 8cb1f02a-c042-4c00-a769-14ed8fd3c6b0
+		sourceColumn: abc_class
+
+	column units_ordered
+		dataType: int64
+		formatString: #,0
+		lineageTag: 42e6f114-6686-4715-a342-ffbe594f9f97
+		sourceColumn: units_ordered
+
+	column units_on_backorder
+		dataType: int64
+		formatString: #,0
+		lineageTag: 784cbc10-534f-481d-8a95-c3168022a084
+		sourceColumn: units_on_backorder
+
+	column backorder_lines
+		dataType: int64
+		lineageTag: 05bb0acd-902c-42e7-a018-26b03d794841
+		sourceColumn: backorder_lines
+
+	column units_never_shipped
+		dataType: int64
+		formatString: #,0
+		lineageTag: 74161139-344c-41ee-b39f-532f2c80fe64
+		sourceColumn: units_never_shipped
+
+	column backorder_unit_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e3309694-0898-4b4c-a5c0-a6b382b5fae2
+		summarizeBy: none
+		sourceColumn: backorder_unit_share
+
+	column backorder_rank
+		dataType: int64
+		lineageTag: b26f6a0d-accb-46ae-8f40-ee3b63c5a5ad
+		summarizeBy: none
+		sourceColumn: backorder_rank
+
+	partition 'Backorder by SKU' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="vw_backorder_by_sku"]}[Data] in T
+

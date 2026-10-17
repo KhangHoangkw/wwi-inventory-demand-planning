@@ -1,0 +1,182 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p2_forecast_acc",
+  "position": {
+    "x": 16,
+    "y": 374,
+    "z": 3000,
+    "height": 330,
+    "width": 500,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Forecast Accuracy"
+                    }
+                  },
+                  "Property": "window_"
+                }
+              },
+              "queryRef": "Forecast Accuracy.window_",
+              "nativeQueryRef": "window_"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Forecast Accuracy"
+                    }
+                  },
+                  "Property": "model"
+                }
+              },
+              "queryRef": "Forecast Accuracy.model",
+              "nativeQueryRef": "model"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Forecast Accuracy"
+                        }
+                      },
+                      "Property": "wape"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Forecast Accuracy.wape)",
+              "nativeQueryRef": "WAPE",
+              "displayName": "WAPE"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Forecast Accuracy"
+                        }
+                      },
+                      "Property": "bias"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Forecast Accuracy.bias)",
+              "nativeQueryRef": "Bias",
+              "displayName": "Bias"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Forecast Accuracy"
+                        }
+                      },
+                      "Property": "mape"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Forecast Accuracy.mape)",
+              "nativeQueryRef": "MAPE",
+              "displayName": "MAPE"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Forecast Accuracy"
+                        }
+                      },
+                      "Property": "sku_months"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Forecast Accuracy.sku_months)",
+              "nativeQueryRef": "SKU-months",
+              "displayName": "SKU-months"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Forecast accuracy summary'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

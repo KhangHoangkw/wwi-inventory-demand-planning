@@ -1,0 +1,42 @@
+table Scenario
+	lineageTag: 17193b86-1929-465c-8b1b-db51c1c26893
+
+	column scenario_id
+		dataType: int64
+		lineageTag: e6f17b83-cec6-49b5-a2dd-50c630e6ebcd
+		summarizeBy: none
+		sourceColumn: scenario_id
+
+	column service_level
+		dataType: decimal
+		formatString: 0.0%
+		lineageTag: 68ace954-593e-4bc5-bb97-bfe642aba277
+		summarizeBy: none
+		sourceColumn: service_level
+
+	column z
+		dataType: decimal
+		lineageTag: 9606b48e-7802-411f-ae7f-0129b641d6f1
+		summarizeBy: none
+		sourceColumn: z
+
+	column lt_scenario
+		dataType: string
+		lineageTag: dcafc627-b0d7-4def-802b-5cb83e51dc4b
+		sourceColumn: lt_scenario
+
+	column scenario_name
+		dataType: string
+		lineageTag: 18a6e4b0-6fc0-49ff-a5bd-100a0d41679b
+		sourceColumn: scenario_name
+		sortByColumn: scenario_id
+
+	column target_type
+		dataType: string
+		lineageTag: a8e4b77d-52f2-4b50-9289-4585c5f24b51
+		sourceColumn: target_type
+
+	partition Scenario = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="dim_policy_scenario"]}[Data] in T
+

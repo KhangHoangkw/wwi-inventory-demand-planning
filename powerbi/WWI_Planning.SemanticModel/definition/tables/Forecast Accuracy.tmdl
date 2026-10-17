@@ -1,0 +1,44 @@
+table 'Forecast Accuracy'
+	lineageTag: ec36152a-b80f-45c0-ba77-27cdc7d8a08a
+
+	column window_
+		dataType: string
+		lineageTag: bd2d936b-6f18-4da2-928d-cf99dd8f9bd1
+		sourceColumn: window_
+
+	column model
+		dataType: string
+		lineageTag: 3ea0a431-55e6-490b-b8e3-3bc87a732e1e
+		sourceColumn: model
+
+	column wape
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 709aa917-a049-448d-aebd-5f8c8b199f0f
+		summarizeBy: none
+		sourceColumn: wape
+
+	column bias
+		dataType: double
+		formatString: 0.0%
+		lineageTag: bce61a89-bc49-476c-aef9-477d5acaf6b0
+		summarizeBy: none
+		sourceColumn: bias
+
+	column mape
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6b1aa370-b75d-4c1f-8891-cd123bc9e08c
+		summarizeBy: none
+		sourceColumn: mape
+
+	column sku_months
+		dataType: int64
+		formatString: #,0
+		lineageTag: a4dc6799-cea8-41f2-8759-452695505126
+		sourceColumn: sku_months
+
+	partition 'Forecast Accuracy' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="forecast_accuracy"]}[Data] in T
+

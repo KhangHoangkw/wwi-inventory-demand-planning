@@ -1,0 +1,169 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p6_dq_ll",
+  "position": {
+    "x": 828,
+    "y": 184,
+    "z": 7000,
+    "height": 520,
+    "width": 436,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Load Log"
+                    }
+                  },
+                  "Property": "log_id"
+                }
+              },
+              "queryRef": "Load Log.log_id",
+              "nativeQueryRef": "Log id",
+              "displayName": "Log id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Load Log"
+                    }
+                  },
+                  "Property": "layer"
+                }
+              },
+              "queryRef": "Load Log.layer",
+              "nativeQueryRef": "layer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Load Log"
+                    }
+                  },
+                  "Property": "object_name"
+                }
+              },
+              "queryRef": "Load Log.object_name",
+              "nativeQueryRef": "object_name"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Load Log"
+                        }
+                      },
+                      "Property": "rows_affected"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Load Log.rows_affected)",
+              "nativeQueryRef": "Rows",
+              "displayName": "Rows"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Load Log"
+                    }
+                  },
+                  "Property": "status"
+                }
+              },
+              "queryRef": "Load Log.status",
+              "nativeQueryRef": "status"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Load Log"
+                  }
+                },
+                "Property": "log_id"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ETL load log'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

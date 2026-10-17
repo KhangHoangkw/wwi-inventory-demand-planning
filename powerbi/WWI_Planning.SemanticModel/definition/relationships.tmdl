@@ -1,0 +1,76 @@
+relationship 'Order Line_order_date_key_Date_date_key'
+	fromColumn: 'Order Line'.order_date_key
+	toColumn: Date.date_key
+
+relationship 'Order Line_stock_item_id_Stock Item_stock_item_id'
+	fromColumn: 'Order Line'.stock_item_id
+	toColumn: 'Stock Item'.stock_item_id
+
+relationship 'Order Line_customer_id_Customer_customer_id'
+	fromColumn: 'Order Line'.customer_id
+	toColumn: Customer.customer_id
+
+relationship 'Invoice Line_invoice_date_key_Date_date_key'
+	fromColumn: 'Invoice Line'.invoice_date_key
+	toColumn: Date.date_key
+
+relationship 'Invoice Line_stock_item_id_Stock Item_stock_item_id'
+	fromColumn: 'Invoice Line'.stock_item_id
+	toColumn: 'Stock Item'.stock_item_id
+
+relationship 'Invoice Line_customer_id_Customer_customer_id'
+	fromColumn: 'Invoice Line'.customer_id
+	toColumn: Customer.customer_id
+
+relationship Simulation_date_key_Date_date_key
+	fromColumn: Simulation.date_key
+	toColumn: Date.date_key
+
+relationship 'Simulation_stock_item_id_Stock Item_stock_item_id'
+	fromColumn: Simulation.stock_item_id
+	toColumn: 'Stock Item'.stock_item_id
+
+relationship Simulation_scenario_id_Scenario_scenario_id
+	fromColumn: Simulation.scenario_id
+	toColumn: Scenario.scenario_id
+
+relationship 'Policy Parameters_stock_item_id_Stock Item_stock_item_id'
+	fromColumn: 'Policy Parameters'.stock_item_id
+	toColumn: 'Stock Item'.stock_item_id
+
+relationship 'Policy Parameters_scenario_id_Scenario_scenario_id'
+	fromColumn: 'Policy Parameters'.scenario_id
+	toColumn: Scenario.scenario_id
+
+relationship 'Policy Parameters_month_start_Date_date'
+	fromColumn: 'Policy Parameters'.month_start
+	toColumn: Date.date
+
+relationship 'Forecast_stock_item_id_Stock Item_stock_item_id'
+	fromColumn: Forecast.stock_item_id
+	toColumn: 'Stock Item'.stock_item_id
+
+relationship Forecast_month_start_Date_date
+	fromColumn: Forecast.month_start
+	toColumn: Date.date
+
+relationship 'Service Monthly_month_start_Date_date'
+	fromColumn: 'Service Monthly'.month_start
+	toColumn: Date.date
+
+relationship 'Scenario KPI_scenario_id_Scenario_scenario_id'
+	fromColumn: 'Scenario KPI'.scenario_id
+	toColumn: Scenario.scenario_id
+
+relationship 'Lead Time Audit_stock_item_id_Stock Item_stock_item_id'
+	fromColumn: 'Lead Time Audit'.stock_item_id
+	toColumn: 'Stock Item'.stock_item_id
+
+relationship 'Backorder by SKU_stock_item_id_Stock Item_stock_item_id'
+	fromColumn: 'Backorder by SKU'.stock_item_id
+	toColumn: 'Stock Item'.stock_item_id
+
+relationship 'Policy Monthly_scenario_id_Scenario_scenario_id'
+	fromColumn: 'Policy Monthly'.scenario_id
+	toColumn: Scenario.scenario_id
+

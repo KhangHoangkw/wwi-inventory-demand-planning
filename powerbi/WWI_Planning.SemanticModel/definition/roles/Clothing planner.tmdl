@@ -1,0 +1,8 @@
+/// RLS demo: a category planner sees only Clothing SKUs (filter flows from Stock Item to all facts)
+role 'Clothing planner'
+	modelPermission: read
+
+	tablePermission 'Stock Item' = 'Stock Item'[primary_stock_group] = "Clothing"
+
+	annotation PBI_Id = 2b5813c71282485ba648a58d89883c21
+

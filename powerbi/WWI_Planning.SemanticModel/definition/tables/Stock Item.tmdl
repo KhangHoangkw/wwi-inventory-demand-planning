@@ -1,0 +1,130 @@
+table 'Stock Item'
+	lineageTag: 25b4a15f-30c0-451f-bec9-18b953e4d314
+
+	column stock_item_id
+		dataType: int64
+		lineageTag: 1d137605-2f6f-40cd-96d5-b3dc675be21a
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column stock_item_name
+		dataType: string
+		lineageTag: c7bd88fa-d35a-45ae-9f07-24c865681eeb
+		sourceColumn: stock_item_name
+
+	column brand
+		dataType: string
+		lineageTag: 9f157833-52c1-41f9-9f16-c06670da7798
+		sourceColumn: brand
+
+	column size
+		dataType: string
+		lineageTag: fa8ac965-c40d-4275-ba15-8f79ce6ba86e
+		sourceColumn: size
+
+	column color
+		dataType: string
+		lineageTag: 00925545-f1f7-454c-a5f5-4dd3e8e17a92
+		sourceColumn: color
+
+	column unit_package
+		dataType: string
+		lineageTag: c1597f58-8cbc-49ba-b1fd-423b1d7103a4
+		sourceColumn: unit_package
+
+	column outer_package
+		dataType: string
+		lineageTag: b4fe5c97-790b-4d06-948d-0023a724a07e
+		sourceColumn: outer_package
+
+	column quantity_per_outer
+		dataType: int64
+		lineageTag: f4864b74-5f3d-45d8-9140-62732677d949
+		summarizeBy: none
+		sourceColumn: quantity_per_outer
+
+	column declared_lead_time_days
+		dataType: int64
+		lineageTag: 2a2aac19-30e5-42dd-9278-cee424fb6e75
+		summarizeBy: none
+		sourceColumn: declared_lead_time_days
+
+	column is_chiller_stock
+		dataType: boolean
+		lineageTag: ebccf2ad-1d9b-4ef9-a2ea-55048998d82a
+		sourceColumn: is_chiller_stock
+
+	column unit_price
+		dataType: decimal
+		formatString: \$#,0.00
+		lineageTag: 7502a1d1-60ae-4fb7-8f52-5da8937584c6
+		summarizeBy: none
+		sourceColumn: unit_price
+
+	column recommended_retail_price
+		dataType: decimal
+		formatString: \$#,0.00
+		lineageTag: 7c4fd7db-0900-4919-ab5f-385fd7b304fb
+		summarizeBy: none
+		sourceColumn: recommended_retail_price
+
+	column last_cost_price
+		dataType: decimal
+		formatString: \$#,0.00
+		lineageTag: 03f09e7a-360c-4c75-82c5-b776cf8c7d53
+		summarizeBy: none
+		sourceColumn: last_cost_price
+
+	column supplier_name
+		dataType: string
+		lineageTag: b34a442b-57b0-42ce-aebc-b8a8b69fcd74
+		sourceColumn: supplier_name
+
+	column primary_stock_group
+		dataType: string
+		lineageTag: 16bdd9f4-ffb5-4493-b6b6-ae0a275979f1
+		sourceColumn: primary_stock_group
+
+	column stock_groups
+		dataType: string
+		lineageTag: 22da1dcb-b66c-4a29-ae56-80f0e50ce943
+		sourceColumn: stock_groups
+
+	column abc_class
+		dataType: string
+		lineageTag: 4eef6ab2-6ffb-45f8-aac5-fe5784d7f7bf
+		sourceColumn: abc_class
+
+	column xyz_class
+		dataType: string
+		lineageTag: 4b0f64b3-3816-4208-a5b5-75eb2dc07678
+		sourceColumn: xyz_class
+
+	column abc_xyz
+		dataType: string
+		lineageTag: c9e54034-6d6a-4d77-9aaa-addce1c5efd9
+		sourceColumn: abc_xyz
+
+	column is_new_product
+		dataType: boolean
+		lineageTag: e818a53e-6e7c-40c8-965f-10a330942412
+		sourceColumn: is_new_product
+
+	column weekly_cv
+		dataType: double
+		formatString: 0.00
+		lineageTag: c4f44a65-526d-48a2-aa3c-db0f114983ec
+		summarizeBy: none
+		sourceColumn: weekly_cv
+
+	column calib_revenue
+		dataType: decimal
+		formatString: \$#,0
+		lineageTag: aa3aa366-87a3-4a42-9611-1d860e57654d
+		summarizeBy: sum
+		sourceColumn: calib_revenue
+
+	partition 'Stock Item' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="vw_pbi_stock_item"]}[Data] in T
+

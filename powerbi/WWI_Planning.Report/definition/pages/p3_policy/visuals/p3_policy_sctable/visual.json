@@ -1,0 +1,294 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p3_policy_sctable",
+  "position": {
+    "x": 16,
+    "y": 404,
+    "z": 4000,
+    "height": 300,
+    "width": 1248,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scenario KPI"
+                    }
+                  },
+                  "Property": "scenario_id"
+                }
+              },
+              "queryRef": "Scenario KPI.scenario_id",
+              "nativeQueryRef": "scenario_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scenario KPI"
+                    }
+                  },
+                  "Property": "scenario_name"
+                }
+              },
+              "queryRef": "Scenario KPI.scenario_name",
+              "nativeQueryRef": "scenario_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scenario"
+                    }
+                  },
+                  "Property": "target_type"
+                }
+              },
+              "queryRef": "Scenario.target_type",
+              "nativeQueryRef": "target_type"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "service_level"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.service_level)",
+              "nativeQueryRef": "Target",
+              "displayName": "Target"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "fill_rate"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.fill_rate)",
+              "nativeQueryRef": "Fill rate",
+              "displayName": "Fill rate"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "target_gap"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.target_gap)",
+              "nativeQueryRef": "Target gap",
+              "displayName": "Target gap"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "avg_inventory_value"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.avg_inventory_value)",
+              "nativeQueryRef": "Avg inventory value",
+              "displayName": "Avg inventory value"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "inventory_turns"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.inventory_turns)",
+              "nativeQueryRef": "Turns",
+              "displayName": "Turns"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "days_of_supply"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.days_of_supply)",
+              "nativeQueryRef": "Days of supply",
+              "displayName": "Days of supply"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "purchase_orders"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.purchase_orders)",
+              "nativeQueryRef": "POs",
+              "displayName": "POs"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Scenario KPI"
+                        }
+                      },
+                      "Property": "skus_below_target"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Scenario KPI.skus_below_target)",
+              "nativeQueryRef": "SKUs below target",
+              "displayName": "SKUs below target"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Scenario KPI"
+                  }
+                },
+                "Property": "scenario_id"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'All 17 scenarios'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "p8_sku",
+  "displayName": "SKU detail",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "type": "Drillthrough",
+  "visibility": "HiddenInViewMode",
+  "pageBinding": {
+    "name": "p8_sku_binding",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "p8_sku_param",
+        "boundFilter": "p8_sku_dt",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Stock Item"
+              }
+            },
+            "Property": "stock_item_name"
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "p8_sku_dt",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Stock Item"
+              }
+            },
+            "Property": "stock_item_name"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  }
+}

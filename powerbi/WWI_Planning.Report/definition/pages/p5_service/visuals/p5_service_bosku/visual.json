@@ -1,0 +1,187 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p5_service_bosku",
+  "position": {
+    "x": 448,
+    "y": 384,
+    "z": 5000,
+    "height": 320,
+    "width": 816,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Backorder by SKU"
+                        }
+                      },
+                      "Property": "backorder_rank"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Backorder by SKU.backorder_rank)",
+              "nativeQueryRef": "Rank",
+              "displayName": "Rank"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "stock_item_name"
+                }
+              },
+              "queryRef": "Stock Item.stock_item_name",
+              "nativeQueryRef": "SKU",
+              "displayName": "SKU"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "primary_stock_group"
+                }
+              },
+              "queryRef": "Stock Item.primary_stock_group",
+              "nativeQueryRef": "Group",
+              "displayName": "Group"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Backorder by SKU"
+                        }
+                      },
+                      "Property": "units_on_backorder"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Backorder by SKU.units_on_backorder)",
+              "nativeQueryRef": "Units on backorder",
+              "displayName": "Units on backorder"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Backorder by SKU"
+                        }
+                      },
+                      "Property": "backorder_unit_share"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Backorder by SKU.backorder_unit_share)",
+              "nativeQueryRef": "Backorder share",
+              "displayName": "Backorder share"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Backorder by SKU"
+                      }
+                    },
+                    "Property": "units_on_backorder"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Backorders by SKU'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+/// Robustness checks (gold.robustness_result): SKU bootstrap 95% CIs, month-by-month and SKU-by-SKU consistency. Text columns are DAX copies of gold.vw_robustness_result formatting.
+table Robustness
+	lineageTag: 4a9ea820-93da-42ba-a26a-09af71f03d30
+
+	column check_group
+		dataType: string
+		lineageTag: 95419c11-745d-4ea7-a027-eca249776472
+		sourceColumn: check_group
+
+	column metric
+		dataType: string
+		lineageTag: ec220bfa-05fb-4e85-8095-285d9dfac82c
+		sourceColumn: metric
+
+	column value
+		dataType: double
+		formatString: 0.000
+		lineageTag: 6fc15ccd-a478-4a05-acad-4110037e6082
+		summarizeBy: none
+		sourceColumn: value
+
+	column ci_low
+		dataType: double
+		formatString: 0.000
+		lineageTag: 5bd5c739-6de0-4224-bdcb-5550c257d7ae
+		summarizeBy: none
+		sourceColumn: ci_low
+
+	column ci_high
+		dataType: double
+		formatString: 0.000
+		lineageTag: 40034ffb-c1b8-4d17-8ec6-d0f0b9c44fb7
+		summarizeBy: none
+		sourceColumn: ci_high
+
+	column note
+		dataType: string
+		lineageTag: 1cfb43b1-b3a9-4eca-bb3f-146d9d1c4913
+		sourceColumn: note
+
+	column metric_label = SUBSTITUTE ( SUBSTITUTE ( 'Robustness'[metric], "S12", "recommended (S12)" ), "S2", "current (S2)" )
+		dataType: string
+		lineageTag: 56820670-d782-48ae-83da-c6a580b3ba86
+
+	column value_text =
+			VAR m = 'Robustness'[metric]
+			VAR v = 'Robustness'[value]
+			RETURN SWITCH ( TRUE (),
+			    CONTAINSSTRING ( m, "pts)" ), FORMAT ( v * 100, "+0.0;-0.0" ) & " pts",
+			    CONTAINSSTRING ( m, "(relative)" ), FORMAT ( v, "+0.0%;-0.0%" ),
+			    LEFT ( m, 5 ) = "share" || LEFT ( m, 6 ) = "lowest" || LEFT ( m, 9 ) = "WAPE SEAS", FORMAT ( v, "0.0%" ),
+			    FORMAT ( v, "0" ) )
+		dataType: string
+		lineageTag: e2d49e0c-5758-4322-86bf-c4ca8ac140fa
+
+	column ci_95_text =
+			VAR m = 'Robustness'[metric]
+			VAR lo = 'Robustness'[ci_low]
+			VAR hi = 'Robustness'[ci_high]
+			RETURN SWITCH ( TRUE (),
+			    ISBLANK ( lo ), BLANK (),
+			    CONTAINSSTRING ( m, "pts)" ), "[" & FORMAT ( lo * 100, "+0.0;-0.0" ) & ", " & FORMAT ( hi * 100, "+0.0;-0.0" ) & "] pts",
+			    CONTAINSSTRING ( m, "(relative)" ), "[" & FORMAT ( lo, "+0.0%;-0.0%" ) & ", " & FORMAT ( hi, "+0.0%;-0.0%" ) & "]",
+			    "[" & FORMAT ( lo, "0.0%" ) & ", " & FORMAT ( hi, "0.0%" ) & "]" )
+		dataType: string
+		lineageTag: e7b18097-edb8-4b96-aeab-054e8cb1d44a
+
+	partition Robustness = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="robustness_result"]}[Data] in T
+

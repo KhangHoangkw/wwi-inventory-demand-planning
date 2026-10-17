@@ -1,0 +1,94 @@
+table 'Lead Time Audit'
+	lineageTag: 398ae753-9397-45fa-970b-1188a32f0df5
+
+	column stock_item_id
+		dataType: int64
+		isHidden
+		lineageTag: f32f14f2-45a0-4a4b-b7d6-95fd74ee8854
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column stock_item_name
+		dataType: string
+		lineageTag: 345cd26d-d4f3-4704-85ee-8448a2f8a372
+		sourceColumn: stock_item_name
+
+	column supplier_name
+		dataType: string
+		lineageTag: 74a729b1-42cb-4d00-b3d5-66d550edcc68
+		sourceColumn: supplier_name
+
+	column declared_lead_time_days
+		dataType: int64
+		lineageTag: 32edc7b4-5d32-4213-aee2-ad6ea7bbeccd
+		summarizeBy: average
+		sourceColumn: declared_lead_time_days
+
+	column po_lines
+		dataType: int64
+		lineageTag: aca81d0e-7bc6-4fcc-8f41-9ce664f26f65
+		sourceColumn: po_lines
+
+	column avg_actual_lead_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: b181fbcb-2660-4373-bcbd-4b910a223c12
+		summarizeBy: average
+		sourceColumn: avg_actual_lead_days
+
+	column max_actual_lead_days
+		dataType: int64
+		lineageTag: 559505bc-8c11-4d77-9052-40cbc4931493
+		summarizeBy: max
+		sourceColumn: max_actual_lead_days
+
+	column avg_po_expected_lead_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: 80cd8aa5-519c-480a-a996-3296c8c91bf5
+		summarizeBy: average
+		sourceColumn: avg_po_expected_lead_days
+
+	column lead_time_overstatement_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: 5d3db5f0-de2e-4433-a591-ab4e595c1ef3
+		summarizeBy: average
+		sourceColumn: lead_time_overstatement_days
+
+	column inv_value_declared_95
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 492f456c-fe2c-4d30-add5-3d9768a30663
+		sourceColumn: inv_value_declared_95
+
+	column inv_value_actual3d_95
+		dataType: double
+		formatString: \$#,0
+		lineageTag: df5b5f91-8516-47ae-baa1-e9ee5fc7866b
+		sourceColumn: inv_value_actual3d_95
+
+	column excess_inventory_value
+		dataType: double
+		formatString: \$#,0
+		lineageTag: b3a7610d-9746-443e-8fe6-f13c6f65fcb6
+		sourceColumn: excess_inventory_value
+
+	column fill_declared_95
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 92d59e76-5132-4bbd-a84f-e29c1a73f64a
+		summarizeBy: average
+		sourceColumn: fill_declared_95
+
+	column fill_actual3d_95
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 251a4eba-11fd-44f0-8914-3bd7f4ccc3c2
+		summarizeBy: average
+		sourceColumn: fill_actual3d_95
+
+	partition 'Lead Time Audit' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="vw_lead_time_audit"]}[Data] in T
+

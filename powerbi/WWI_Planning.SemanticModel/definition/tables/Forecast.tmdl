@@ -1,0 +1,70 @@
+table Forecast
+	lineageTag: cef58a0b-9ee8-441d-b5c2-aef4f9f3ab9f
+
+	measure 'Forecast Units' = SUM(Forecast[forecast_units])
+		formatString: #,0
+		displayFolder: Forecast
+		lineageTag: 0a39bb36-9712-44a3-a61e-c36fa9bbffdb
+
+	measure 'Actual Units (fc)' = SUM(Forecast[actual_units])
+		formatString: #,0
+		displayFolder: Forecast
+		lineageTag: 73974d24-62ef-49e2-bc82-280a050af828
+
+	measure WAPE = DIVIDE(SUM(Forecast[abs_error_units]), [Actual Units (fc)])
+		formatString: 0.0%
+		displayFolder: Forecast
+		lineageTag: b1616eed-9f76-4767-93ca-056f932c39fb
+
+	measure 'Forecast Bias' = DIVIDE(SUM(Forecast[error_units]), [Actual Units (fc)])
+		formatString: +0.0%;-0.0%
+		displayFolder: Forecast
+		lineageTag: 32062ea3-2b78-4445-aaa3-96a0e7e2194d
+
+	column stock_item_id
+		dataType: int64
+		isHidden
+		lineageTag: 7b195fc7-0c05-4eab-9648-d2926d3539a1
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column month_start
+		dataType: dateTime
+		isHidden
+		lineageTag: 90a4b505-40e9-40c8-be3f-9711768ef61a
+		sourceColumn: month_start
+
+	column model_period
+		dataType: string
+		lineageTag: 3bf70f70-2023-4c32-8ecf-71af9024ee30
+		sourceColumn: model_period
+
+	column model
+		dataType: string
+		lineageTag: aa61df2c-45ca-4d9b-a761-e866f436dbab
+		sourceColumn: model
+
+	column forecast_units
+		dataType: double
+		lineageTag: 86664126-cb9e-4d36-b762-bab4ada3f2e1
+		sourceColumn: forecast_units
+
+	column actual_units
+		dataType: int64
+		lineageTag: 592b870a-979e-443f-805e-755db6d7b4bd
+		sourceColumn: actual_units
+
+	column error_units
+		dataType: double
+		lineageTag: 568361b5-b9a4-491e-b2e4-c384b2e0b10f
+		sourceColumn: error_units
+
+	column abs_error_units
+		dataType: double
+		lineageTag: 43d6684f-9a17-427b-8eca-c6de50aca9cd
+		sourceColumn: abs_error_units
+
+	partition Forecast = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="fact_forecast"]}[Data] in T
+

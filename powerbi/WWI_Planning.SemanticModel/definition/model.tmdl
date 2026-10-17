@@ -1,0 +1,36 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table Date
+ref table 'Stock Item'
+ref table Customer
+ref table Scenario
+ref table 'Order Line'
+ref table 'Invoice Line'
+ref table Forecast
+ref table 'Forecast Accuracy'
+ref table 'Policy Parameters'
+ref table Simulation
+ref table 'Scenario KPI'
+ref table 'Service Monthly'
+ref table 'Lead Time Audit'
+ref table 'Backorder by SKU'
+ref table 'DQ Results'
+ref table 'Load Log'
+ref table 'Target SL'
+ref table Robustness
+ref table 'Policy Monthly'
+ref table 'Forecast Accuracy Monthly'
+
+ref role 'Clothing planner'
+
+ref cultureInfo en-US
+

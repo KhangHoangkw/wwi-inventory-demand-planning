@@ -1,0 +1,565 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "order_line.unit_fill_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Line",
+			          "ConceptualProperty": "Unit Fill Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fill rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Unit fill rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Unit fill rate (actual)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_line.units_ordered": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Line",
+			          "ConceptualProperty": "Units Ordered"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Units ordered": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "invoice_line.gross_margin_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Invoice Line",
+			          "ConceptualProperty": "Gross Margin %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "GM %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Gross margin %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "invoice_line.ontime_delivery_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Invoice Line",
+			          "ConceptualProperty": "On-Time Delivery %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "OTD %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "On-time delivery %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "invoice_line.revenue": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Invoice Line",
+			          "ConceptualProperty": "Revenue"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Revenue (excl. tax)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "target_sl.target_sl_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Target SL",
+			          "ConceptualProperty": "Target SL Value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Selected target service level": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "forecast.actual_units_fc": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Forecast",
+			          "ConceptualProperty": "Actual Units (fc)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Actual units": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "forecast.forecast_units": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Forecast",
+			          "ConceptualProperty": "Forecast Units"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SEAS forecast": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_line.backorder_unit_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Line",
+			          "ConceptualProperty": "Backorder Unit Share"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Backorder share": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Backorder unit share": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "forecast.wape": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Forecast",
+			          "ConceptualProperty": "WAPE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Forecast WAPE (SEAS, test)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "robustness.value_text": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Robustness",
+			          "ConceptualProperty": "value_text"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Result": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "robustness.ci_95_text": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Robustness",
+			          "ConceptualProperty": "ci_95_text"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "95% CI": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "robustness.metric_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Robustness",
+			          "ConceptualProperty": "metric_label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Metric": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "date.year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Date",
+			          "ConceptualProperty": "year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "invoice_line.revenue_yoy__same_period": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Invoice Line",
+			          "ConceptualProperty": "Revenue YoY % (same period)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Revenue YoY*": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "invoice_line.avg_days_order_to_delivery": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Invoice Line",
+			          "ConceptualProperty": "Avg Days Order to Delivery"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Days to deliver": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_line.units_yoy__same_period": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Line",
+			          "ConceptualProperty": "Units YoY % (same period)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Units YoY*": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "stock_item.stock_item_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Stock Item",
+			          "ConceptualProperty": "stock_item_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SKU": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "stock_item.primary_stock_group": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Stock Item",
+			          "ConceptualProperty": "primary_stock_group"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Group": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "lead_time_audit.supplier_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Lead Time Audit",
+			          "ConceptualProperty": "supplier_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Supplier": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "load_log.log_id": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Load Log",
+			          "ConceptualProperty": "log_id"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Log id": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "stock_item.supplier_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Stock Item",
+			          "ConceptualProperty": "supplier_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Supplier": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "stock_item.abc_class": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Stock Item",
+			          "ConceptualProperty": "abc_class"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ABC": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "stock_item.xyz_class": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Stock Item",
+			          "ConceptualProperty": "xyz_class"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "XYZ": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

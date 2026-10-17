@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "p2_forecast_wape",
+  "position": {
+    "x": 16,
+    "y": 72,
+    "z": 2000,
+    "height": 290,
+    "width": 500,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Forecast Accuracy"
+                    }
+                  },
+                  "Property": "model"
+                }
+              },
+              "queryRef": "Forecast Accuracy.model",
+              "nativeQueryRef": "model",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Forecast Accuracy"
+                    }
+                  },
+                  "Property": "window_"
+                }
+              },
+              "queryRef": "Forecast Accuracy.window_",
+              "nativeQueryRef": "window_"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Forecast Accuracy"
+                        }
+                      },
+                      "Property": "wape"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Forecast Accuracy.wape)",
+              "nativeQueryRef": "WAPE",
+              "displayName": "WAPE"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'WAPE by model and window'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

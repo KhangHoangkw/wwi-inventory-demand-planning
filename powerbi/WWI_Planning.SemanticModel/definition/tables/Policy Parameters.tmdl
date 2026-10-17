@@ -1,0 +1,91 @@
+table 'Policy Parameters'
+	lineageTag: 763c8ac0-21b0-47f3-b43d-46e5819b8548
+
+	measure 'Safety Stock What-if (units)' = VAR z = NORM.S.INV([Target SL Value]) RETURN DIVIDE(SUMX('Policy Parameters', z * 'Policy Parameters'[sigma_lt]), DISTINCTCOUNT('Policy Parameters'[month_start]))
+		formatString: #,0
+		displayFolder: What-if
+		lineageTag: 2ab59d12-6c9e-4e3e-84b6-4405083037f3
+
+	measure 'Safety Stock What-if (value)' = VAR z = NORM.S.INV([Target SL Value]) RETURN DIVIDE(SUMX('Policy Parameters', z * 'Policy Parameters'[sigma_lt] * RELATED('Stock Item'[last_cost_price])), DISTINCTCOUNT('Policy Parameters'[month_start]))
+		formatString: \$#,0
+		displayFolder: What-if
+		lineageTag: ef842e7e-07f8-483b-9a67-ea041bf86a55
+
+	column scenario_id
+		dataType: int64
+		isHidden
+		lineageTag: 6faf2535-6bd6-4d0f-b04d-1c864a263194
+		summarizeBy: none
+		sourceColumn: scenario_id
+
+	column stock_item_id
+		dataType: int64
+		isHidden
+		lineageTag: fa8ca4ec-34c8-4659-bcdc-3d285e708e99
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column month_start
+		dataType: dateTime
+		isHidden
+		lineageTag: 032d6e3e-84fc-4aec-9a66-9c3b8a0eb5b5
+		sourceColumn: month_start
+
+	column mu_d
+		dataType: double
+		lineageTag: e0d04350-6176-4113-9ed3-fd57fb3546de
+		summarizeBy: average
+		sourceColumn: mu_d
+
+	column sigma_d
+		dataType: double
+		lineageTag: 8d6ffba0-1098-45e6-852b-2327a3bd3b7b
+		summarizeBy: average
+		sourceColumn: sigma_d
+
+	column e_rel
+		dataType: double
+		lineageTag: bde0d8f3-7edf-4842-a86e-0c5a941b33b3
+		summarizeBy: average
+		sourceColumn: e_rel
+
+	column lt_days
+		dataType: int64
+		lineageTag: fb7e246f-b3db-49f9-b51f-dae4eff6cb11
+		summarizeBy: average
+		sourceColumn: lt_days
+
+	column quantity_per_outer
+		dataType: int64
+		lineageTag: a3066fb1-18ad-4a4a-a854-dfb0fcff1368
+		summarizeBy: none
+		sourceColumn: quantity_per_outer
+
+	column sigma_lt
+		dataType: double
+		lineageTag: 50d0e38f-e815-4b10-a585-78a82f46cca8
+		summarizeBy: average
+		sourceColumn: sigma_lt
+
+	column safety_stock
+		dataType: double
+		lineageTag: c498a098-d5a8-4149-be31-9476654757d4
+		summarizeBy: average
+		sourceColumn: safety_stock
+
+	column reorder_point
+		dataType: double
+		lineageTag: 4644ca31-a3e9-4df0-8772-6e1d6552f9d0
+		summarizeBy: average
+		sourceColumn: reorder_point
+
+	column order_up_to
+		dataType: double
+		lineageTag: de955239-6ae0-43b1-b0eb-06d5b5358a18
+		summarizeBy: average
+		sourceColumn: order_up_to
+
+	partition 'Policy Parameters' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="policy_parameters"]}[Data] in T
+

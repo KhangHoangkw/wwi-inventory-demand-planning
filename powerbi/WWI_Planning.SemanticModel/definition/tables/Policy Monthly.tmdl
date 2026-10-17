@@ -1,0 +1,40 @@
+/// Simulated fill rate and inventory value by scenario and month (gold.vw_policy_kpi_monthly)
+table 'Policy Monthly'
+	lineageTag: e5ffdfcd-58a7-4605-940a-5311169ebe6f
+
+	column run_type
+		dataType: string
+		lineageTag: 6ed8495d-5c8c-41c4-b2c8-e22b7499c2fb
+		sourceColumn: run_type
+
+	column scenario_id
+		dataType: int64
+		isHidden
+		lineageTag: 87525e4f-dfe8-44a5-97ea-5f5cc480f8c9
+		summarizeBy: none
+		sourceColumn: scenario_id
+
+	column month_start
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 09cfbb84-2609-421e-8d0b-b15ab2e05a32
+		sourceColumn: month_start
+
+	column fill_rate
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 792a74cd-abd7-4059-951c-b936b65f44ff
+		summarizeBy: none
+		sourceColumn: fill_rate
+
+	column avg_inventory_value
+		dataType: double
+		formatString: \$#,0
+		lineageTag: f791b7d2-b625-4238-a116-3179b47ea237
+		summarizeBy: none
+		sourceColumn: avg_inventory_value
+
+	partition 'Policy Monthly' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="vw_policy_kpi_monthly"]}[Data] in T
+

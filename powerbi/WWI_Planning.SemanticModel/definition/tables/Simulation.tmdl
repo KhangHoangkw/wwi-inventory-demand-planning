@@ -1,0 +1,107 @@
+table Simulation
+	lineageTag: 70415094-4d17-4ee5-bc98-6fbf791c8bb8
+
+	measure 'Sim Fill Rate' = DIVIDE(SUM(Simulation[filled_qty]), SUM(Simulation[demand_qty]))
+		formatString: 0.00%
+		displayFolder: Simulation
+		lineageTag: 756d2c0f-afa7-4ebe-b9b5-1a1d792b58a2
+
+	measure 'Sim Avg Inventory Value' = SUMX(VALUES('Stock Item'[stock_item_id]), CALCULATE(AVERAGE(Simulation[on_hand_end])) * CALCULATE(MAX('Stock Item'[last_cost_price])))
+		formatString: \$#,0
+		displayFolder: Simulation
+		lineageTag: ec9e0add-854b-4087-aeab-e747b3136b7e
+
+	measure 'Sim COGS' = SUMX(VALUES('Stock Item'[stock_item_id]), CALCULATE(SUM(Simulation[filled_qty])) * CALCULATE(MAX('Stock Item'[last_cost_price])))
+		formatString: \$#,0
+		displayFolder: Simulation
+		lineageTag: d7546a84-09f0-47f3-b022-2e5e7880da47
+
+	measure 'Sim Inventory Turns' = DIVIDE([Sim COGS], [Sim Avg Inventory Value])
+		formatString: 0.0
+		displayFolder: Simulation
+		lineageTag: 723cf434-263f-4338-a643-233c099608e3
+
+	measure 'Sim Purchase Orders' = CALCULATE(COUNTROWS(Simulation), Simulation[order_qty] > 0)
+		formatString: #,0
+		displayFolder: Simulation
+		lineageTag: a9f25ea0-5bd9-430a-8095-97a4780b3f60
+
+	measure 'Target Gap' = VAR t = MAX(Scenario[service_level]) RETURN IF(ISBLANK(t) || HASONEVALUE(Scenario[scenario_id]) = FALSE(), BLANK(), [Sim Fill Rate] - t)
+		formatString: +0.00%;-0.00%
+		displayFolder: Simulation
+		lineageTag: 56c61272-b53d-476c-bb54-9f992af840f8
+
+	column run_type
+		dataType: string
+		lineageTag: 75a9d2c5-09cf-4c6f-b979-967c9edc7ad6
+		sourceColumn: run_type
+
+	column scenario_id
+		dataType: int64
+		isHidden
+		lineageTag: a9e39b7b-6fdb-4a42-b061-454f169cbbe1
+		summarizeBy: none
+		sourceColumn: scenario_id
+
+	column stock_item_id
+		dataType: int64
+		isHidden
+		lineageTag: 0de96bbd-d311-4e81-b573-990010d7b31c
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: cf331942-6782-4d3d-803e-7305420bf89f
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column demand_qty
+		dataType: double
+		lineageTag: 0d8eb874-6e89-47f4-8b97-3ca7aa470844
+		sourceColumn: demand_qty
+
+	column filled_qty
+		dataType: double
+		lineageTag: af5d9257-16b0-4ed9-9a44-c84cb17a4847
+		sourceColumn: filled_qty
+
+	column receipt_qty
+		dataType: double
+		lineageTag: ba3e903b-ee4c-4bf9-8a27-c35945ab2ab1
+		sourceColumn: receipt_qty
+
+	column order_qty
+		dataType: double
+		lineageTag: 9ea0c89b-a43d-4953-be38-50bbaa3eb8a0
+		sourceColumn: order_qty
+
+	column net_inventory_end
+		dataType: double
+		lineageTag: 03377796-55e8-439e-9d6d-847075d118be
+		summarizeBy: average
+		sourceColumn: net_inventory_end
+
+	column on_hand_end
+		dataType: double
+		lineageTag: d4136f2e-fefa-4354-9a6f-3afe69b23981
+		summarizeBy: average
+		sourceColumn: on_hand_end
+
+	column backlog_end
+		dataType: double
+		lineageTag: ef091b34-12b6-4e00-a89b-e0031958bbbf
+		summarizeBy: average
+		sourceColumn: backlog_end
+
+	column on_order_end
+		dataType: double
+		lineageTag: 1190fa48-18df-471b-8273-46dce9275c11
+		summarizeBy: average
+		sourceColumn: on_order_end
+
+	partition Simulation = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="fact_policy_simulation"]}[Data] in T
+

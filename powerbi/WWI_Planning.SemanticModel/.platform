@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "WWI_Planning"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2a352713-7e53-46a1-96ec-8d29a027fce6"
+  }
+}

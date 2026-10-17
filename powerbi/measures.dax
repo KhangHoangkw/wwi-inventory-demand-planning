@@ -1,0 +1,71 @@
+// =====================================================================
+// measures.dax: paste into Power BI Desktop → DAX query view → Run,
+// then click "Update model with changes" to create all measures at once.
+// Table names must match docs/powerbi_model.md (rename tables after import:
+// 'Invoice Line', 'Order Line', Forecast, Simulation, Scenario, 'Stock Item',
+// 'Policy Parameters'). Create the numeric what-if parameter "Target SL"
+// (0.80–0.995, step 0.005, default 0.95) BEFORE running, it adds [Target SL Value].
+// =====================================================================
+DEFINE
+    MEASURE 'Invoice Line'[Revenue] = SUM ( 'Invoice Line'[revenue_excl_tax] )
+    MEASURE 'Invoice Line'[Gross Profit] = SUM ( 'Invoice Line'[line_profit] )
+    MEASURE 'Invoice Line'[Gross Margin %] = DIVIDE ( [Gross Profit], [Revenue] )
+    MEASURE 'Invoice Line'[On-Time Delivery %] =
+        DIVIDE (
+            CALCULATE ( DISTINCTCOUNT ( 'Invoice Line'[invoice_id] ), 'Invoice Line'[is_on_time] = 1 ),
+            CALCULATE ( DISTINCTCOUNT ( 'Invoice Line'[invoice_id] ), NOT ISBLANK ( 'Invoice Line'[is_on_time] ) )
+        )
+    MEASURE 'Invoice Line'[Avg Days Order to Delivery] = AVERAGE ( 'Invoice Line'[days_order_to_delivery] )
+
+    MEASURE 'Order Line'[Units Ordered] = SUM ( 'Order Line'[quantity] )
+    MEASURE 'Order Line'[Units Picked] = SUM ( 'Order Line'[picked_quantity] )
+    MEASURE 'Order Line'[Unit Fill Rate] = DIVIDE ( [Units Picked], [Units Ordered] )
+    MEASURE 'Order Line'[Backorder Unit Share] =
+        DIVIDE ( CALCULATE ( [Units Ordered], 'Order Line'[is_backorder_line] = 1 ), [Units Ordered] )
+    MEASURE 'Order Line'[Orders] = DISTINCTCOUNT ( 'Order Line'[order_id] )
+
+    MEASURE Forecast[Forecast Units] = SUM ( Forecast[forecast_units] )
+    MEASURE Forecast[Actual Units (fc)] = SUM ( Forecast[actual_units] )
+    MEASURE Forecast[WAPE] = DIVIDE ( SUM ( Forecast[abs_error_units] ), [Actual Units (fc)] )
+    MEASURE Forecast[Forecast Bias] = DIVIDE ( SUM ( Forecast[error_units] ), [Actual Units (fc)] )
+
+    MEASURE Simulation[Sim Fill Rate] = DIVIDE ( SUM ( Simulation[filled_qty] ), SUM ( Simulation[demand_qty] ) )
+    MEASURE Simulation[Sim Avg Inventory Value] =
+        SUMX (
+            VALUES ( 'Stock Item'[stock_item_id] ),
+            CALCULATE ( AVERAGE ( Simulation[on_hand_end] ) ) * CALCULATE ( MAX ( 'Stock Item'[last_cost_price] ) )
+        )
+    MEASURE Simulation[Sim COGS] =
+        SUMX ( VALUES ( 'Stock Item'[stock_item_id] ),
+               CALCULATE ( SUM ( Simulation[filled_qty] ) ) * CALCULATE ( MAX ( 'Stock Item'[last_cost_price] ) ) )
+    MEASURE Simulation[Sim Inventory Turns] = DIVIDE ( [Sim COGS], [Sim Avg Inventory Value] )
+    MEASURE Simulation[Sim Purchase Orders] = CALCULATE ( COUNTROWS ( Simulation ), Simulation[order_qty] > 0 )
+    MEASURE Simulation[Target Gap] =
+        VAR t = MAX ( Scenario[service_level] )
+        RETURN IF ( ISBLANK ( t ) || NOT HASONEVALUE ( Scenario[scenario_id] ), BLANK (), [Sim Fill Rate] - t )
+
+    MEASURE 'Policy Parameters'[Safety Stock What-if (units)] =
+        VAR z = NORM.S.INV ( [Target SL Value] )
+        RETURN DIVIDE ( SUMX ( 'Policy Parameters', z * 'Policy Parameters'[sigma_lt] ),
+                        DISTINCTCOUNT ( 'Policy Parameters'[month_start] ) )
+    MEASURE 'Policy Parameters'[Safety Stock What-if (value)] =
+        VAR z = NORM.S.INV ( [Target SL Value] )
+        RETURN DIVIDE ( SUMX ( 'Policy Parameters', z * 'Policy Parameters'[sigma_lt] * RELATED ( 'Stock Item'[last_cost_price] ) ),
+                        DISTINCTCOUNT ( 'Policy Parameters'[month_start] ) )
+
+    -- Same-period YoY: capped at the last transaction date, so the partial
+    -- year 2016 (Jan-May) is compared with Jan-May 2015 instead of the whole of 2015
+    MEASURE 'Invoice Line'[Revenue YoY % (same period)] =
+        VAR _maxDate = CALCULATE ( MAX ( 'Invoice Line'[invoice_date] ), REMOVEFILTERS () )
+        VAR _dates = FILTER ( VALUES ( 'Date'[date] ), 'Date'[date] <= _maxDate )
+        VAR _cur = CALCULATE ( [Revenue], _dates )
+        VAR _py = CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( _dates ) )
+        RETURN IF ( NOT ISBLANK ( _py ), DIVIDE ( _cur - _py, _py ) )
+    MEASURE 'Order Line'[Units YoY % (same period)] =
+        VAR _maxDate = CALCULATE ( MAX ( 'Order Line'[order_date] ), REMOVEFILTERS () )
+        VAR _dates = FILTER ( VALUES ( 'Date'[date] ), 'Date'[date] <= _maxDate )
+        VAR _cur = CALCULATE ( [Units Ordered], _dates )
+        VAR _py = CALCULATE ( [Units Ordered], SAMEPERIODLASTYEAR ( _dates ) )
+        RETURN IF ( NOT ISBLANK ( _py ), DIVIDE ( _cur - _py, _py ) )
+EVALUATE
+    ROW ( "measures defined", 24 )

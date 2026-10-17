@@ -1,0 +1,117 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "p2_forecast_abcxyz",
+  "position": {
+    "x": 528,
+    "y": 420,
+    "z": 7000,
+    "height": 284,
+    "width": 360,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "xyz_class"
+                }
+              },
+              "queryRef": "Stock Item.xyz_class",
+              "nativeQueryRef": "xyz_class",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "abc_class"
+                }
+              },
+              "queryRef": "Stock Item.abc_class",
+              "nativeQueryRef": "abc_class",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Stock Item"
+                        }
+                      },
+                      "Property": "stock_item_id"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "Count(Stock Item.stock_item_id)",
+              "nativeQueryRef": "SKUs",
+              "displayName": "SKUs"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ABC-XYZ matrix: number of SKUs'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "WWI_Planning"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "66470932-3283-4d43-bf2a-88e865ab70a7"
+  }
+}

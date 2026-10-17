@@ -1,0 +1,240 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p1_overview_byyear",
+  "position": {
+    "x": 16,
+    "y": 476,
+    "z": 9000,
+    "height": 228,
+    "width": 1248,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date"
+                    }
+                  },
+                  "Property": "year"
+                }
+              },
+              "queryRef": "Date.year",
+              "nativeQueryRef": "Year",
+              "displayName": "Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Invoice Line"
+                    }
+                  },
+                  "Property": "Revenue"
+                }
+              },
+              "queryRef": "Invoice Line.Revenue",
+              "nativeQueryRef": "Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Invoice Line"
+                    }
+                  },
+                  "Property": "Revenue YoY % (same period)"
+                }
+              },
+              "queryRef": "Invoice Line.Revenue YoY % (same period)",
+              "nativeQueryRef": "Revenue YoY*",
+              "displayName": "Revenue YoY*"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Invoice Line"
+                    }
+                  },
+                  "Property": "Gross Margin %"
+                }
+              },
+              "queryRef": "Invoice Line.Gross Margin %",
+              "nativeQueryRef": "GM %",
+              "displayName": "GM %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Line"
+                    }
+                  },
+                  "Property": "Units Ordered"
+                }
+              },
+              "queryRef": "Order Line.Units Ordered",
+              "nativeQueryRef": "Units Ordered"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Line"
+                    }
+                  },
+                  "Property": "Units YoY % (same period)"
+                }
+              },
+              "queryRef": "Order Line.Units YoY % (same period)",
+              "nativeQueryRef": "Units YoY*",
+              "displayName": "Units YoY*"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Line"
+                    }
+                  },
+                  "Property": "Unit Fill Rate"
+                }
+              },
+              "queryRef": "Order Line.Unit Fill Rate",
+              "nativeQueryRef": "Fill rate",
+              "displayName": "Fill rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Line"
+                    }
+                  },
+                  "Property": "Backorder Unit Share"
+                }
+              },
+              "queryRef": "Order Line.Backorder Unit Share",
+              "nativeQueryRef": "Backorder share",
+              "displayName": "Backorder share"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Invoice Line"
+                    }
+                  },
+                  "Property": "On-Time Delivery %"
+                }
+              },
+              "queryRef": "Invoice Line.On-Time Delivery %",
+              "nativeQueryRef": "OTD %",
+              "displayName": "OTD %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Invoice Line"
+                    }
+                  },
+                  "Property": "Avg Days Order to Delivery"
+                }
+              },
+              "queryRef": "Invoice Line.Avg Days Order to Delivery",
+              "nativeQueryRef": "Days to deliver",
+              "displayName": "Days to deliver"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Date"
+                  }
+                },
+                "Property": "year"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'KPI trend by year (*YoY vs same dates a year earlier; 2016 = Jan–May)'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

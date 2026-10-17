@@ -1,0 +1,153 @@
+table 'Invoice Line'
+	lineageTag: c93fad67-971c-49ed-bcf5-fa6022d63fd1
+
+	measure Revenue = SUM('Invoice Line'[revenue_excl_tax])
+		formatString: \$#,0
+		displayFolder: Sales
+		lineageTag: cd9a9724-d6f4-4b3d-8875-d4370d693d23
+
+	measure 'Gross Profit' = SUM('Invoice Line'[line_profit])
+		formatString: \$#,0
+		displayFolder: Sales
+		lineageTag: 673e8f26-df6e-4ba6-8de3-e3b47d7b981b
+
+	measure 'Gross Margin %' = DIVIDE([Gross Profit], [Revenue])
+		formatString: 0.0%
+		displayFolder: Sales
+		lineageTag: 5ce75018-130d-46b3-8e51-b7d21aaf9ee9
+
+	measure 'On-Time Delivery %' = DIVIDE(CALCULATE(DISTINCTCOUNT('Invoice Line'[invoice_id]), 'Invoice Line'[is_on_time] = 1), CALCULATE(DISTINCTCOUNT('Invoice Line'[invoice_id]), NOT ISBLANK('Invoice Line'[is_on_time])))
+		formatString: 0.0%
+		displayFolder: Service
+		lineageTag: d4120136-ee60-4ffe-ad00-38169fd3009d
+
+	measure 'Avg Days Order to Delivery' = AVERAGE('Invoice Line'[days_order_to_delivery])
+		formatString: 0.0
+		displayFolder: Service
+		lineageTag: c0036844-c2a1-4151-8a27-2b06a44de707
+
+	/// Revenue growth vs the same dates one year earlier, capped at the last invoice date so the partial year 2016 (Jan-May) is compared with Jan-May 2015
+	measure 'Revenue YoY % (same period)' =
+			VAR _maxDate = CALCULATE ( MAX ( 'Invoice Line'[invoice_date] ), REMOVEFILTERS () )
+			VAR _dates = FILTER ( VALUES ( 'Date'[date] ), 'Date'[date] <= _maxDate )
+			VAR _cur = CALCULATE ( [Revenue], _dates )
+			VAR _py = CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( _dates ) )
+			RETURN IF ( NOT ISBLANK ( _py ), DIVIDE ( _cur - _py, _py ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Sales
+		lineageTag: 8a2b67c8-6f92-4a34-818c-2649c8941802
+
+	column invoice_line_id
+		dataType: int64
+		isHidden
+		lineageTag: 0c8121b6-a950-4111-a0e9-e42b732d3f8d
+		summarizeBy: none
+		sourceColumn: invoice_line_id
+
+	column invoice_id
+		dataType: int64
+		lineageTag: 37068641-67a9-43fb-a04f-5e90039df6a6
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+	column order_id
+		dataType: int64
+		isHidden
+		lineageTag: 7ca55b70-7053-4382-8fc2-4f2bc9a7cd21
+		summarizeBy: none
+		sourceColumn: order_id
+
+	column invoice_date_key
+		dataType: int64
+		isHidden
+		lineageTag: e654e0bd-01d0-4538-80d6-c13e3b308605
+		summarizeBy: none
+		sourceColumn: invoice_date_key
+
+	column invoice_date
+		dataType: dateTime
+		isHidden
+		lineageTag: 6a1e79e3-5971-41f0-b5c8-b9d2a067e4a7
+		sourceColumn: invoice_date
+
+	column order_date
+		dataType: dateTime
+		isHidden
+		lineageTag: b4a5c8b8-7c26-4750-88c6-c93b83ff8010
+		sourceColumn: order_date
+
+	column expected_delivery_date
+		dataType: dateTime
+		isHidden
+		lineageTag: 13211e41-f383-4a79-873e-d030573e5b08
+		sourceColumn: expected_delivery_date
+
+	column confirmed_delivery_date
+		dataType: dateTime
+		isHidden
+		lineageTag: 8942b8cb-363b-4527-83e9-e6204cb9e68f
+		sourceColumn: confirmed_delivery_date
+
+	column customer_id
+		dataType: int64
+		isHidden
+		lineageTag: 5cd96083-17d3-4ef9-93e0-72489ab0628b
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column stock_item_id
+		dataType: int64
+		isHidden
+		lineageTag: c39b02f5-863a-422f-9657-5224fe2f4033
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column delivery_method_id
+		dataType: int64
+		isHidden
+		lineageTag: 7fc5a3f3-e3b3-407c-ae45-29de57017b67
+		summarizeBy: none
+		sourceColumn: delivery_method_id
+
+	column quantity
+		dataType: int64
+		lineageTag: a199c482-b069-4b8e-9c40-74e8ff727924
+		sourceColumn: quantity
+
+	column unit_price
+		dataType: decimal
+		lineageTag: da9f7b6d-5f81-4fc7-8144-20a4d96e5a6d
+		summarizeBy: none
+		sourceColumn: unit_price
+
+	column revenue_excl_tax
+		dataType: decimal
+		lineageTag: 21817e0d-e131-4f2f-8def-ad14e605a045
+		sourceColumn: revenue_excl_tax
+
+	column tax_amount
+		dataType: decimal
+		lineageTag: 5217f801-2272-4a57-94d3-7257fdb9f005
+		sourceColumn: tax_amount
+
+	column line_profit
+		dataType: decimal
+		lineageTag: f318c7ac-7b64-4703-b572-3664fe51db75
+		sourceColumn: line_profit
+
+	column days_order_to_delivery
+		dataType: int64
+		lineageTag: 2a5c3ca0-f2d2-4caa-8a0f-9663f1211b59
+		summarizeBy: average
+		sourceColumn: days_order_to_delivery
+
+	column is_on_time
+		dataType: int64
+		lineageTag: aa0eb386-5d9f-4ced-b2bf-7793c53724fe
+		summarizeBy: none
+		sourceColumn: is_on_time
+
+	partition 'Invoice Line' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="fact_invoice_line"]}[Data] in T
+

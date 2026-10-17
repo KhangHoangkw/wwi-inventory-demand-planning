@@ -1,0 +1,96 @@
+table 'Service Monthly'
+	lineageTag: bb2fe267-f48a-4d3f-b7f9-746e1e3b0a2f
+
+	column month_start
+		dataType: dateTime
+		isHidden
+		lineageTag: fa5d59a7-1aa1-4087-8dcd-5e06cae4dba9
+		sourceColumn: month_start
+
+	column orders
+		dataType: int64
+		lineageTag: 40a84d24-688b-4e3a-932b-af17d16cce10
+		sourceColumn: orders
+
+	column original_orders
+		dataType: int64
+		lineageTag: 7538f701-0509-4301-9842-0ebc085a957c
+		sourceColumn: original_orders
+
+	column split_orders
+		dataType: int64
+		lineageTag: ecd0b8d1-2e7f-4c98-81bd-e16d29fc858d
+		sourceColumn: split_orders
+
+	column order_split_rate
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a314259f-b4c8-407a-9e74-57d8decc9b06
+		summarizeBy: average
+		sourceColumn: order_split_rate
+
+	column order_lines
+		dataType: int64
+		lineageTag: 2fe8d4b3-c085-4831-8f6e-f6438357860d
+		sourceColumn: order_lines
+
+	column units_ordered
+		dataType: int64
+		lineageTag: 0d5cd1e0-09d0-4f62-aacc-6018e70d9342
+		sourceColumn: units_ordered
+
+	column units_picked
+		dataType: int64
+		lineageTag: bfe10ed1-f5b1-4f66-966a-075b70823c40
+		sourceColumn: units_picked
+
+	column unit_fill_rate
+		dataType: double
+		formatString: 0.0%
+		lineageTag: cb90e370-1321-4a74-a477-ec1a5f2c66ee
+		summarizeBy: average
+		sourceColumn: unit_fill_rate
+
+	column lines_never_picked
+		dataType: int64
+		lineageTag: 26fdf454-9e80-4fe3-b0b9-af8cecd0cd03
+		sourceColumn: lines_never_picked
+
+	column units_on_backorder
+		dataType: int64
+		lineageTag: f475dbae-d6bc-4892-967e-a6aab888f989
+		sourceColumn: units_on_backorder
+
+	column invoices
+		dataType: int64
+		lineageTag: b809fbab-f500-4a83-a2a4-0fb1245c1089
+		sourceColumn: invoices
+
+	column invoices_delivered
+		dataType: int64
+		lineageTag: a30ab6ea-c055-4742-8a41-4b70ec5742e5
+		sourceColumn: invoices_delivered
+
+	column invoices_on_time
+		dataType: int64
+		lineageTag: 56d3de9f-39e0-4e6f-b263-b63ae09d4417
+		sourceColumn: invoices_on_time
+
+	column on_time_delivery_rate
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 197cf7bd-a122-44ab-9754-c114d6cc372d
+		summarizeBy: average
+		sourceColumn: on_time_delivery_rate
+
+	column avg_days_order_to_delivery
+		dataType: double
+		formatString: 0.0
+		lineageTag: 78f55199-d863-4b7e-b098-9bedba71a0f0
+		summarizeBy: average
+		sourceColumn: avg_days_order_to_delivery
+
+	partition 'Service Monthly' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="vw_customer_service_monthly"]}[Data] in T
+

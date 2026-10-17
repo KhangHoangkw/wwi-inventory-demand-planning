@@ -1,0 +1,98 @@
+table 'Scenario KPI'
+	lineageTag: 088e4144-6327-4d31-b4f9-110dd398d840
+
+	column run_type
+		dataType: string
+		lineageTag: 49c948b5-bba0-4532-858f-e796b4aa74c7
+		sourceColumn: run_type
+
+	column scenario_id
+		dataType: int64
+		isHidden
+		lineageTag: a236660c-7018-4404-8eaa-b640fb7a361d
+		summarizeBy: none
+		sourceColumn: scenario_id
+
+	column scenario_name
+		dataType: string
+		lineageTag: 6bb3a6d2-9a62-48af-a1e0-9b1b06333ea7
+		sourceColumn: scenario_name
+
+	column lt_scenario
+		dataType: string
+		lineageTag: f5df6599-4379-4e4e-9787-86e0a4a8898d
+		sourceColumn: lt_scenario
+
+	column service_level
+		dataType: decimal
+		formatString: 0.0%
+		lineageTag: ddeeae07-c4cb-405e-9c3a-7e061202b7b0
+		summarizeBy: none
+		sourceColumn: service_level
+
+	column fill_rate
+		dataType: double
+		formatString: 0.00%
+		lineageTag: c3ea4280-d8a1-479a-92c2-1281d741fcfe
+		summarizeBy: none
+		sourceColumn: fill_rate
+
+	column avg_sku_ready_rate
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 4aa8faac-3c2a-4add-b89f-d808f2bf03f4
+		summarizeBy: none
+		sourceColumn: avg_sku_ready_rate
+
+	column avg_inventory_value
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 344f1776-5e77-402d-a397-0b801d6ebfdc
+		summarizeBy: none
+		sourceColumn: avg_inventory_value
+
+	column avg_inventory_units
+		dataType: double
+		formatString: #,0
+		lineageTag: 4c4ef6b7-3125-42a5-b434-a37b4cbe6a4d
+		summarizeBy: none
+		sourceColumn: avg_inventory_units
+
+	column purchase_orders
+		dataType: int64
+		formatString: #,0
+		lineageTag: 17ddacf6-3066-4f53-9806-00b4e59cffef
+		summarizeBy: none
+		sourceColumn: purchase_orders
+
+	column inventory_turns
+		dataType: double
+		formatString: 0.0
+		lineageTag: d4e3cba8-897c-4eb1-b454-bffd19f1a507
+		summarizeBy: none
+		sourceColumn: inventory_turns
+
+	column days_of_supply
+		dataType: double
+		formatString: 0.0
+		lineageTag: 9935cb8c-ecae-488f-bc55-7ce56a1e3666
+		summarizeBy: none
+		sourceColumn: days_of_supply
+
+	column target_gap
+		dataType: double
+		formatString: +0.00%;-0.00%
+		lineageTag: c9e6ed47-fb90-457b-944e-fe44429f5ea5
+		summarizeBy: none
+		sourceColumn: target_gap
+
+	column skus_below_target
+		dataType: int64
+		lineageTag: 7571e04d-ee0d-409c-a9dd-87477670d06b
+		summarizeBy: none
+		sourceColumn: skus_below_target
+
+	partition 'Scenario KPI' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="vw_policy_kpi_scenario"]}[Data] in T
+

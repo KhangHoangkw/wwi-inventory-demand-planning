@@ -1,0 +1,133 @@
+table 'Order Line'
+	lineageTag: c051237c-7409-41d9-aa01-2e9f07ee88a9
+
+	measure 'Units Ordered' = SUM('Order Line'[quantity])
+		formatString: #,0
+		displayFolder: Demand
+		lineageTag: 3febb879-f18c-4319-a48a-483369367877
+
+	measure 'Units Picked' = SUM('Order Line'[picked_quantity])
+		formatString: #,0
+		displayFolder: Demand
+		lineageTag: 099abe4b-e1a2-48a3-b4d8-7f9872973faa
+
+	measure 'Unit Fill Rate' = DIVIDE([Units Picked], [Units Ordered])
+		formatString: 0.0%
+		displayFolder: Service
+		lineageTag: 895fdb62-1c21-42e8-b412-a65fe61afee2
+
+	measure 'Backorder Unit Share' = DIVIDE(CALCULATE([Units Ordered], 'Order Line'[is_backorder_line] = 1), [Units Ordered])
+		formatString: 0.0%
+		displayFolder: Service
+		lineageTag: 95b165fc-b701-48ee-8244-d9936ce2ef45
+
+	measure Orders = DISTINCTCOUNT('Order Line'[order_id])
+		formatString: #,0
+		displayFolder: Demand
+		lineageTag: 7092d8f3-331f-4d47-931c-4ca4e1cd46d7
+
+	/// Units ordered vs the same dates one year earlier, capped at the last order date
+	measure 'Units YoY % (same period)' =
+			VAR _maxDate = CALCULATE ( MAX ( 'Order Line'[order_date] ), REMOVEFILTERS () )
+			VAR _dates = FILTER ( VALUES ( 'Date'[date] ), 'Date'[date] <= _maxDate )
+			VAR _cur = CALCULATE ( [Units Ordered], _dates )
+			VAR _py = CALCULATE ( [Units Ordered], SAMEPERIODLASTYEAR ( _dates ) )
+			RETURN IF ( NOT ISBLANK ( _py ), DIVIDE ( _cur - _py, _py ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Demand
+		lineageTag: b235f274-8b0b-405b-9f19-ee29d20e754b
+
+	column order_line_id
+		dataType: int64
+		isHidden
+		lineageTag: 81ec7497-ca0d-4cca-88a7-4f402005548b
+		summarizeBy: none
+		sourceColumn: order_line_id
+
+	column order_id
+		dataType: int64
+		lineageTag: e1d57547-0858-4d0a-8a5b-c2633ab1d028
+		summarizeBy: none
+		sourceColumn: order_id
+
+	column order_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 56e14ffe-8130-44a4-91e8-d88f4cc0f966
+		summarizeBy: none
+		sourceColumn: order_date_key
+
+	column order_date
+		dataType: dateTime
+		isHidden
+		lineageTag: 977236d5-8850-4fc3-bdb5-81df4d397556
+		sourceColumn: order_date
+
+	column expected_delivery_date
+		dataType: dateTime
+		isHidden
+		lineageTag: 62367d7c-691d-403e-9c6d-d26f0974ab6e
+		sourceColumn: expected_delivery_date
+
+	column customer_id
+		dataType: int64
+		isHidden
+		lineageTag: 9ee0edc3-9337-4d29-b40f-074f16dda1a0
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column stock_item_id
+		dataType: int64
+		isHidden
+		lineageTag: 645e62ee-599a-4370-b19d-737f3c4024b6
+		summarizeBy: none
+		sourceColumn: stock_item_id
+
+	column quantity
+		dataType: int64
+		lineageTag: 37a08602-f575-4f16-9b8f-f28515696039
+		sourceColumn: quantity
+
+	column picked_quantity
+		dataType: int64
+		lineageTag: e38cfddf-78c0-4e0b-8364-0d24fa1859ad
+		sourceColumn: picked_quantity
+
+	column unshipped_quantity
+		dataType: int64
+		lineageTag: 3837b213-a0aa-4d13-b4ce-264bd81b2ea1
+		sourceColumn: unshipped_quantity
+
+	column unit_price
+		dataType: decimal
+		lineageTag: cc7defb4-494c-4451-8af3-0b7952dec09b
+		summarizeBy: none
+		sourceColumn: unit_price
+
+	column line_value_excl_tax
+		dataType: decimal
+		lineageTag: 0ae013a1-1ec9-4dc7-b417-b20aa2e0ee94
+		sourceColumn: line_value_excl_tax
+
+	column is_backorder_line
+		dataType: int64
+		lineageTag: efb09876-42d8-4cfe-89ad-f66cea48d19c
+		summarizeBy: none
+		sourceColumn: is_backorder_line
+
+	column order_was_split
+		dataType: int64
+		lineageTag: b01c7f91-286d-43ea-b6bd-a6b72f475f73
+		summarizeBy: none
+		sourceColumn: order_was_split
+
+	column is_never_picked
+		dataType: int64
+		lineageTag: e2d20607-544b-4f8a-bb61-f78c6747352f
+		summarizeBy: none
+		sourceColumn: is_never_picked
+
+	partition 'Order Line' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="fact_order_line"]}[Data] in T
+

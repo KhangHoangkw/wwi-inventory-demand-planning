@@ -1,0 +1,209 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p8_sku_attr",
+  "position": {
+    "x": 16,
+    "y": 72,
+    "z": 2000,
+    "height": 124,
+    "width": 1248,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "stock_item_name"
+                }
+              },
+              "queryRef": "Stock Item.stock_item_name",
+              "nativeQueryRef": "SKU",
+              "displayName": "SKU"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "primary_stock_group"
+                }
+              },
+              "queryRef": "Stock Item.primary_stock_group",
+              "nativeQueryRef": "Group",
+              "displayName": "Group"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "supplier_name"
+                }
+              },
+              "queryRef": "Stock Item.supplier_name",
+              "nativeQueryRef": "Supplier",
+              "displayName": "Supplier"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "abc_class"
+                }
+              },
+              "queryRef": "Stock Item.abc_class",
+              "nativeQueryRef": "ABC",
+              "displayName": "ABC"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "xyz_class"
+                }
+              },
+              "queryRef": "Stock Item.xyz_class",
+              "nativeQueryRef": "XYZ",
+              "displayName": "XYZ"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Stock Item"
+                        }
+                      },
+                      "Property": "declared_lead_time_days"
+                    }
+                  },
+                  "Function": 4
+                }
+              },
+              "queryRef": "Max(Stock Item.declared_lead_time_days)",
+              "nativeQueryRef": "Declared LT (d)",
+              "displayName": "Declared LT (d)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Stock Item"
+                        }
+                      },
+                      "Property": "quantity_per_outer"
+                    }
+                  },
+                  "Function": 4
+                }
+              },
+              "queryRef": "Max(Stock Item.quantity_per_outer)",
+              "nativeQueryRef": "Pack size",
+              "displayName": "Pack size"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Stock Item"
+                        }
+                      },
+                      "Property": "last_cost_price"
+                    }
+                  },
+                  "Function": 4
+                }
+              },
+              "queryRef": "Max(Stock Item.last_cost_price)",
+              "nativeQueryRef": "Unit cost",
+              "displayName": "Unit cost"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'SKU master data'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+table Customer
+	lineageTag: 65d60ea7-125c-4742-a06a-a33c665d5fa0
+
+	column customer_id
+		dataType: int64
+		lineageTag: 5224c95d-757d-4a3a-8684-e533c250a80c
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column customer_name
+		dataType: string
+		lineageTag: 9abb5f7f-481f-4ad3-84fc-fcb05cc7acf9
+		sourceColumn: customer_name
+
+	column customer_category
+		dataType: string
+		lineageTag: be034d1d-8c91-46bd-b252-8fa4452a64f5
+		sourceColumn: customer_category
+
+	column buying_group
+		dataType: string
+		lineageTag: b747d0bb-45f9-47f2-828e-40f6e0dd0818
+		sourceColumn: buying_group
+
+	column city_name
+		dataType: string
+		lineageTag: edc92cd5-d71a-45bd-a63c-165a080c9c2a
+		dataCategory: City
+		sourceColumn: city_name
+
+	column state_name
+		dataType: string
+		lineageTag: 1b6c6dc6-0d0a-44a9-944c-7eadad0f7616
+		dataCategory: StateOrProvince
+		sourceColumn: state_name
+
+	column sales_territory
+		dataType: string
+		lineageTag: d11a8021-419e-4c14-9d37-2bcd7b91c498
+		sourceColumn: sales_territory
+
+	column has_attributes
+		dataType: int64
+		isHidden
+		lineageTag: 8c76d959-7b45-48b8-a6c4-29c8c3fee6c9
+		summarizeBy: none
+		sourceColumn: has_attributes
+
+	partition Customer = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="dim_customer"]}[Data] in T
+

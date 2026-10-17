@@ -1,0 +1,14 @@
+# Source backups and large data stay local
+data/
+*.bak
+*.bacpac
+*.mdf
+*.ldf
+# Power BI temp
+*.pbix.bak
+~$*
+.DS_Store
+Thumbs.db
+# Power BI project (.pbip): keep definitions, ignore local cache/settings
+powerbi/**/.pbi/localSettings.json
+powerbi/**/.pbi/cache.abf

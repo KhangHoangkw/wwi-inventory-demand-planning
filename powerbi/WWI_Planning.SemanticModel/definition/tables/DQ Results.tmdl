@@ -1,0 +1,51 @@
+table 'DQ Results'
+	lineageTag: 7f73a47a-b304-44b1-97c3-4cae5d39afa9
+
+	column dq_id
+		dataType: int64
+		isHidden
+		lineageTag: 8a1bd97a-f397-4e17-89c1-7a954c96fc8a
+		summarizeBy: none
+		sourceColumn: dq_id
+
+	column check_name
+		dataType: string
+		lineageTag: fe3011bc-6e8a-4410-bdd6-926f0ffa94b7
+		sourceColumn: check_name
+
+	column layer
+		dataType: string
+		lineageTag: ab932bad-2689-4d34-8389-83abadc931ea
+		sourceColumn: layer
+
+	column failed_rows
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0dde1979-1e1d-4740-9395-86071fc1422d
+		sourceColumn: failed_rows
+
+	column severity
+		dataType: string
+		lineageTag: 1b4a4e8f-72b6-4184-9ee8-4f3371362df6
+		sourceColumn: severity
+
+	column run_id
+		dataType: int64
+		lineageTag: 51909ca1-1f77-4c80-95eb-5dba65cd0441
+		summarizeBy: none
+		sourceColumn: run_id
+
+	column detail
+		dataType: string
+		lineageTag: a13c4a61-946e-4166-9779-45deebe037f2
+		sourceColumn: detail
+
+	/// TRUE for checks of the most recent DQ run (used as page filter, so the report never needs a hard-coded run id)
+	column is_latest_run = 'DQ Results'[run_id] = MAX ( 'DQ Results'[run_id] )
+		dataType: boolean
+		lineageTag: e4f3e5ae-faa7-45a1-a2a2-5034afc89d4b
+
+	partition 'DQ Results' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="etl",Item="dq_result"]}[Data], R = Table.RemoveColumns(T, {"checked_at"}) in R
+

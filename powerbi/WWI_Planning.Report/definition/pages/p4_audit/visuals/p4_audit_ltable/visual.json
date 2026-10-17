@@ -1,0 +1,247 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p4_audit_ltable",
+  "position": {
+    "x": 16,
+    "y": 446,
+    "z": 10000,
+    "height": 258,
+    "width": 1248,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Stock Item"
+                    }
+                  },
+                  "Property": "stock_item_name"
+                }
+              },
+              "queryRef": "Stock Item.stock_item_name",
+              "nativeQueryRef": "SKU",
+              "displayName": "SKU"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lead Time Audit"
+                    }
+                  },
+                  "Property": "supplier_name"
+                }
+              },
+              "queryRef": "Lead Time Audit.supplier_name",
+              "nativeQueryRef": "Supplier",
+              "displayName": "Supplier"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lead Time Audit"
+                        }
+                      },
+                      "Property": "declared_lead_time_days"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Lead Time Audit.declared_lead_time_days)",
+              "nativeQueryRef": "Declared LT",
+              "displayName": "Declared LT"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lead Time Audit"
+                        }
+                      },
+                      "Property": "avg_actual_lead_days"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Lead Time Audit.avg_actual_lead_days)",
+              "nativeQueryRef": "Recorded LT",
+              "displayName": "Recorded LT"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lead Time Audit"
+                        }
+                      },
+                      "Property": "lead_time_overstatement_days"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Lead Time Audit.lead_time_overstatement_days)",
+              "nativeQueryRef": "Overstatement (d)",
+              "displayName": "Overstatement (d)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lead Time Audit"
+                        }
+                      },
+                      "Property": "inv_value_declared_95"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Lead Time Audit.inv_value_declared_95)",
+              "nativeQueryRef": "Inv. value declared LT",
+              "displayName": "Inv. value declared LT"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lead Time Audit"
+                        }
+                      },
+                      "Property": "inv_value_actual3d_95"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Lead Time Audit.inv_value_actual3d_95)",
+              "nativeQueryRef": "Inv. value recorded LT",
+              "displayName": "Inv. value recorded LT"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lead Time Audit"
+                        }
+                      },
+                      "Property": "excess_inventory_value"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Lead Time Audit.excess_inventory_value)",
+              "nativeQueryRef": "Excess value",
+              "displayName": "Excess value"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Lead Time Audit"
+                      }
+                    },
+                    "Property": "excess_inventory_value"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Lead-time audit by SKU'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

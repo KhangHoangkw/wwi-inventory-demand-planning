@@ -1,0 +1,165 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p7_robustness_rbtable",
+  "position": {
+    "x": 16,
+    "y": 72,
+    "z": 2000,
+    "height": 340,
+    "width": 1248,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Robustness"
+                    }
+                  },
+                  "Property": "check_group"
+                }
+              },
+              "queryRef": "Robustness.check_group",
+              "nativeQueryRef": "check_group"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Robustness"
+                    }
+                  },
+                  "Property": "metric_label"
+                }
+              },
+              "queryRef": "Robustness.metric_label",
+              "nativeQueryRef": "Metric",
+              "displayName": "Metric"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Robustness"
+                    }
+                  },
+                  "Property": "value_text"
+                }
+              },
+              "queryRef": "Robustness.value_text",
+              "nativeQueryRef": "Result",
+              "displayName": "Result"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Robustness"
+                    }
+                  },
+                  "Property": "ci_95_text"
+                }
+              },
+              "queryRef": "Robustness.ci_95_text",
+              "nativeQueryRef": "95% CI",
+              "displayName": "95% CI"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Robustness"
+                    }
+                  },
+                  "Property": "note"
+                }
+              },
+              "queryRef": "Robustness.note",
+              "nativeQueryRef": "note"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Robustness"
+                  }
+                },
+                "Property": "check_group"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Robustness results (value, 95% CI where bootstrapped)'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

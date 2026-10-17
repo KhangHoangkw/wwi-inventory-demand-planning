@@ -1,0 +1,87 @@
+table Date
+	lineageTag: e9e5564e-4f79-4c1d-9761-8bc51e05c1c9
+	dataCategory: Time
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 3a7e4b4c-d5d1-4bd5-b52d-ece53a2c6b5e
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column date
+		dataType: dateTime
+		isUnique
+		formatString: yyyy-mm-dd
+		lineageTag: 3070bd9e-0052-405e-9af1-9908861ccbf1
+		sourceColumn: date
+
+	column year
+		dataType: int64
+		lineageTag: 2ef3a3fd-ba6a-4cc9-9237-27da18dc6453
+		summarizeBy: none
+		sourceColumn: year
+
+	column quarter
+		dataType: int64
+		lineageTag: ca8212da-ed07-4726-951f-687d1b9b7d3a
+		summarizeBy: none
+		sourceColumn: quarter
+
+	column month
+		dataType: int64
+		lineageTag: 1d2eba1d-463e-46d4-acec-c44513e1c0c3
+		summarizeBy: none
+		sourceColumn: month
+
+	column month_name
+		dataType: string
+		lineageTag: 4265eeb5-c317-4d77-94f0-4da0ad71475c
+		sourceColumn: month_name
+		sortByColumn: month
+
+	column month_start
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: 954ffd60-37d8-4d8f-a1e7-892578f9c7f0
+		sourceColumn: month_start
+
+	column iso_week
+		dataType: int64
+		lineageTag: 08188de8-7e2c-48ba-825a-629ac265cdcf
+		summarizeBy: none
+		sourceColumn: iso_week
+
+	column week_start_monday
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 45386234-37f4-40d4-b399-4e05a89b88db
+		sourceColumn: week_start_monday
+
+	column weekday_no
+		dataType: int64
+		lineageTag: 06890de7-0ec0-49b5-8133-fa94a2f0426f
+		summarizeBy: none
+		sourceColumn: weekday_no
+
+	column weekday_name
+		dataType: string
+		lineageTag: 515cc5d4-1160-41c1-9bf6-62d9850ab626
+		sourceColumn: weekday_name
+		sortByColumn: weekday_no
+
+	column is_trading_day
+		dataType: int64
+		lineageTag: 6549390f-3e88-44ea-b572-62a48e72d6a5
+		summarizeBy: none
+		sourceColumn: is_trading_day
+
+	column model_period
+		dataType: string
+		lineageTag: c772beb7-1504-4da5-ab4b-ff1cac1a96e0
+		sourceColumn: model_period
+
+	partition Date = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="gold",Item="dim_date"]}[Data] in T
+

@@ -1,0 +1,39 @@
+table 'Load Log'
+	lineageTag: 5f0764f5-530f-4ef3-be87-f97dee7e2a94
+
+	column log_id
+		dataType: int64
+		lineageTag: d14be479-ab14-4610-90b4-9be81c656591
+		summarizeBy: none
+		sourceColumn: log_id
+
+	column layer
+		dataType: string
+		lineageTag: 169af80a-db44-434f-aaeb-05fffa4a903c
+		sourceColumn: layer
+
+	column object_name
+		dataType: string
+		lineageTag: 8348f90f-93be-4254-acd3-eca9c4247162
+		sourceColumn: object_name
+
+	column load_type
+		dataType: string
+		lineageTag: 0e733ca0-4301-4a23-b3f6-20be6b0d24c5
+		sourceColumn: load_type
+
+	column rows_affected
+		dataType: int64
+		formatString: #,0
+		lineageTag: ca864999-f9a5-467f-a9f0-06a87ef0edb3
+		sourceColumn: rows_affected
+
+	column status
+		dataType: string
+		lineageTag: dd2d5aa4-d1af-47e8-90d9-20740b36a9b2
+		sourceColumn: status
+
+	partition 'Load Log' = m
+		mode: import
+		source = let Source = Sql.Database("localhost", "WWI_Analytics"), T = Source{[Schema="etl",Item="load_log"]}[Data], R = Table.RemoveColumns(T, {"started_at", "finished_at", "error_message"}) in R
+
